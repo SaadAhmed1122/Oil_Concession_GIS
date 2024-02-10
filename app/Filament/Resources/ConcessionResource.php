@@ -6,6 +6,7 @@ use App\Filament\Resources\ConcessionResource\Pages;
 use App\Filament\Resources\ConcessionResource\RelationManagers;
 use App\Models\Concession;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +24,8 @@ class ConcessionResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('concession_name')->label('Concession Name'),
+                // Map::make('geometry'),
             ]);
     }
 
