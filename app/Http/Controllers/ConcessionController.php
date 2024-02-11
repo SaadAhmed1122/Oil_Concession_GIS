@@ -31,28 +31,14 @@ class ConcessionController extends Controller
         }, $coordinates);
 
         $lineString = new LineString($points);
-        dd($lineString);
+        // dd($lineString);
 
         Concession::create([
             'concession_name' => $request->concession_name,
             'geometry' => $lineString,
         ]);
-        $concession = new Concession();
-        $concession->concession_name = $request->concession_name;
-        $geometryData = json_decode($request->geometry, true);
-        $coordinates = $geometryData['coordinates'][0];
-        $points = array_map(function ($coordinate) {
-            return new Point($coordinate[0], $coordinate[1]);
-        }, $coordinates);
-        $lineString = new LineString($points);
 
-        $concession->geometry = $lineString;
-
-        $concession->save();
-
-        Session::flash('success', 'Concession saved successfully');
-
-        // return redirect()->route('index')->with('success', 'Concession added successfully.');
+        return redirect()->route('concessions.showAll')->with('success', 'Concession added successfully.');
     }
     public function show($id)
     {

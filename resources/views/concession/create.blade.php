@@ -34,12 +34,6 @@
         </div>
     </div>
 @endsection
-@if(Session::has('success'))
-    <div class="alert alert-success">
-        {{ Session::get('success') }}
-    </div>
-@endif
-
 @push('scripts')
     <script>
         // Wait for the DOM content to be fully loaded before executing the script
@@ -58,18 +52,39 @@
 
             // Initialize drawControl and add to map
             var drawControl = new L.Control.Draw({
-                draw: {
-                    polygon: true,
-                    circle: false,
-                    rectangle: false,
-                    marker: false,
-                    polyline: false
+            position: 'topright',
+            draw: {
+                polygon: {
+                    shapeOptions: {
+                        color: 'purple' //polygons being drawn will be purple color
+                    },
+                    allowIntersection: false,
+                    drawError: {
+                        color: 'orange',
+                        timeout: 1000
+                    },
+                    showArea: true, //the area of the polygon will be displayed as it is drawn.
+                    metric: false,
+                    repeatMode: true
                 },
-                edit: {
-                    featureGroup: drawnItems
-                }
-            });
-            map.addControl(drawControl);
+                polyline: {
+                    shapeOptions: {
+                        color: 'red'
+                    },
+                },
+                circlemarker: false, //circlemarker type has been disabled.
+                rect: {
+                    shapeOptions: {
+                        color: 'green'
+                    },
+                },
+                circle: false,
+            },
+            edit: {
+                featureGroup: drawnItems
+            }
+        });
+        map.addControl(drawControl);
 
             // Event listener for draw:created
             map.on('draw:created', function(e) {
