@@ -26,3 +26,5 @@ Route::get('/login', function () {
 // });
 Route::get('/concessions/create', [ConcessionController::class, 'create'])->name('concessions.create');
 Route::post('/concessions/store', [ConcessionController::class, 'store'])->name('concessions.store');
+Route::get('/concessions/{id}',[ConcessionController::class,'show'])->name('concessions.show');
+Route::get('/concessions', [ConcessionController::class,'showAll'])->name('concessions.showAll');
