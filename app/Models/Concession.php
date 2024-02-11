@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait; 
+use MatanYadaev\EloquentSpatial\Objects\Geometry;
+use MatanYadaev\EloquentSpatial\Objects\LineString;
+use MatanYadaev\EloquentSpatial\Objects\Polygon;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 
 
 class Concession extends Model
 {
     use HasFactory;
-    use SpatialTrait;
+    use HasSpatial;
     protected $table = 'concessions';
 
     protected $primaryKey = 'concession_id';
@@ -22,7 +25,7 @@ class Concession extends Model
     ];
 
     protected $casts = [
-        'geometry' => 'geometry',
+        'geometry' => LineString::class,
     ];
 
 
