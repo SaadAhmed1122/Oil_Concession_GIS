@@ -25,58 +25,49 @@
         // Create a feature group
         var featureGroup = L.featureGroup().addTo(map);
 
-        @foreach ($concessions as $concession)
-            @if ($concession->geometry)
-                // Log GeoJSON data for debugging
-                var geoJSONData{{ $concession->id }} = {!! json_encode([
-                    'type' => 'Feature',
-                    'geometry' => ['type' => 'LineString', 'coordinates' => $concession->geometry->toArray()],
-                ]) !!};
-                console.log('GeoJSON data for concession {{ $concession->id }}:', geoJSONData{{ $concession->id }});
+        // Encode all concessions to a JavaScript array
+        var concessions = {!! json_encode($concessions->toArray()) !!};
+
+        // Loop through the concessions and add them to the feature group
+        concessions.forEach(function(concession) {
+            if (concession.geometry && concession.geometry.coordinates.length > 0) {
+                var geoJSONData = {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: concession.geometry
+                            .coordinates // Ensure this is a valid array of [lng, lat] pairs
+                    }
+                };
 
                 // Create GeoJSON layer
-                try {
-                    var layer = L.geoJSON(geoJSONData{{ $concession->id }}, {
-                        onEachFeature: function(feature, layer) {
-                            layer.bindPopup(
-                                '<b>ID:</b> {{ $concession->id }}<br><b>Name:</b> {{ $concession->concession_name }}'
-                                );
-                        }
-                    });
-                    featureGroup.addLayer(layer);
-
-                    // Log the coordinates of the GeoJSON layer
-                    console.log('Coordinates of GeoJSON layer:', {!! json_encode($concession->geometry->toArray()) !!});
-                } catch (error) {
-                    console.error('Error adding GeoJSON layer:', error);
-                }
-            @endif
-        @endforeach
+                var layer = L.geoJSON(geoJSONData, {
+                    style: function(feature) {
+                        return {
+                            color: "#ff0000",
+                            weight: 5
+                        }; // Set the line color and weight
+                    },
+                    onEachFeature: function(feature, layer) {
+                        layer.bindPopup(
+                            '<b>ID:</b> ' + concession.concession_id + '<br><b>Name:</b> ' +
+                            concession.concession_name
+                        );
+                    }
+                }).addTo(featureGroup);
+            } else {
+                console.error('Invalid geometry for concession ID:', concession.concession_id);
+            }
+        });
 
         // Check if feature group has valid features before fitting bounds
         if (featureGroup.getLayers().length > 0) {
-            // Log the bounds of the feature group
-            console.log('Bounds of feature group:', featureGroup.getBounds());
-
-            // Calculate bounds manually based on individual feature coordinates
-            var groupBounds = null;
-            featureGroup.eachLayer(function(layer) {
-                if (!groupBounds) {
-                    groupBounds = layer.getBounds();
-                } else {
-                    groupBounds.extend(layer.getBounds());
-                }
-            });
-
-            // Fit map bounds to the calculated bounds
-            try {
-                if (groupBounds) {
-                    map.fitBounds(groupBounds);
-                } else {
-                    console.error('Error calculating group bounds: No valid features found.');
-                }
-            } catch (error) {
-                console.error('Error fitting bounds:', error);
+            var bounds = featureGroup.getBounds();
+            if (bounds.isValid()) { // Check if bounds are valid before fitting
+                console.log(bounds);
+                map.fitBounds(bounds);
+            } else {
+                console.error('Feature group bounds are not valid.');
             }
         } else {
             console.log('No valid features found in the feature group.');
