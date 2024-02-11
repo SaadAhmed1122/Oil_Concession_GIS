@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait; 
+
 
 class Concession extends Model
 {
     use HasFactory;
-
+    use SpatialTrait;
     protected $table = 'concessions';
 
     protected $primaryKey = 'concession_id';
