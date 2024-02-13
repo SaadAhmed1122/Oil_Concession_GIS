@@ -10,13 +10,20 @@ class Well extends Model
     use HasFactory;
     protected $primaryKey = 'well_code';
 
-    // public function concession()
-    // {
-    //     return $this->belongsTo(Concession::class, 'concession_code', 'concession_code');
-    // }
+    protected $fillable = [
+        'concession_code',
+        'monthly_production',
+        'longitude',
+        'latitude',
+    ];
 
-    // public function tank()
-    // {
-    //     return $this->hasOne(Tank::class, 'well_code', 'well_code');
-    // }
+    public function concession()
+    {
+        return $this->belongsTo(Concession::class, 'concession_code', 'concession_id');
+    }
+
+    public function tank()
+    {
+        return $this->hasOne(Tank::class, 'well_code', 'well_code');
+    }
 }

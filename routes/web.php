@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ConcessionController;
+use App\Http\Controllers\tankController;
+use App\Http\Controllers\wellController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +30,11 @@ Route::get('/concessions/create', [ConcessionController::class, 'create'])->name
 Route::post('/concessions/store', [ConcessionController::class, 'store'])->name('concessions.store');
 Route::get('/concessions/{id}',[ConcessionController::class,'show'])->name('concessions.show');
 Route::get('/concessions', [ConcessionController::class,'showAll'])->name('concessions.showAll');
+// routes/web.php
+Route::get('/wells/create', [wellController::class, 'create'])->name('well.create');
+Route::post('/wells/store', [WellController::class, 'store'])->name('well.store');
+Route::get('/wells', [WellController::class, 'index'])->name('well.list');
+
+Route::get('/tanks/create', [tankController::class,'create'])->name('tanks.create');
+Route::post('/tanks/store', [tankController::class,'store'])->name('tanks.store');
+Route::get('/tanks', [TankController::class, 'index'])->name('tank.index');
