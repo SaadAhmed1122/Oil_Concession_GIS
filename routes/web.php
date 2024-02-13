@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConcessionController;
+use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\tankController;
 use App\Http\Controllers\wellController;
 use Illuminate\Support\Facades\Route;
@@ -38,3 +39,11 @@ Route::get('/wells', [WellController::class, 'index'])->name('well.list');
 Route::get('/tanks/create', [tankController::class,'create'])->name('tanks.create');
 Route::post('/tanks/store', [tankController::class,'store'])->name('tanks.store');
 Route::get('/tanks', [TankController::class, 'index'])->name('tank.index');
+
+
+Route::get('/inspections', [InspectionController::class, 'index'])->name('inspections.index');
+Route::post('/inspections/store', [InspectionController::class, 'store'])->name('inspections.store');
+Route::get('/inspections/create', [InspectionController::class, 'create'])->name('inspections.create');
+Route::get('/inspections/{inspection}/edit', [InspectionController::class, 'edit'])->name('inspections.edit_inspection');
+Route::delete('/inspections/{inspection}', [InspectionController::class, 'destroy'])->name('inspections.destroy');
+Route::put('/inspections/{id}', [InspectionController::class,'update'])->name('inspections.update');
