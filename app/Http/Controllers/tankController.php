@@ -33,7 +33,7 @@ class tankController extends Controller
 
         Tank::create($request->all());
 
-        return redirect()->route('tanks.create_tank')
+        return redirect()->route('tank.index')
             ->with('success', 'Tank created successfully.');
     }
 

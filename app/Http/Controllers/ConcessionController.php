@@ -20,23 +20,9 @@ class ConcessionController extends Controller
     {
         $request->validate([
             'concession_name' => 'required|string|max:255',
-            'geometry' => 'required|string',
+            'geometry' => 'required',
         ]);
-
-        $geometryData = json_decode($request->geometry, true);
-        $coordinates = $geometryData['coordinates'][0];
-
-        $points = array_map(function ($coordinate) {
-            return new Point($coordinate[0], $coordinate[1]);
-        }, $coordinates);
-
-        $lineString = new LineString($points);
-        // dd($lineString);
-
-        Concession::create([
-            'concession_name' => $request->concession_name,
-            'geometry' => $lineString,
-        ]);
+        Concession::create($request->all());
 
         return redirect()->route('concessions.showAll')->with('success', 'Concession added successfully.');
     }
@@ -47,9 +33,9 @@ class ConcessionController extends Controller
         return view('concession.show', compact('concession'));
     }
     public function showAll()
-{
-    $concessions = Concession::all();
+    {
+        $concessions = Concession::all();
 
-    return view('concession.showall',  ['concessions' => $concessions]);
-}
+        return view('concession.showall', ['concessions' => $concessions]);
+    }
 }

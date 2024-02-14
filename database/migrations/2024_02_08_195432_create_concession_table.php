@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('concessions', function (Blueprint $table) {
             $table->id('concession_id');
             $table->string('concession_name');
-            $table->geometry('geometry');
+            $table->polygon('geometry');
             $table->timestamps();
         });
 

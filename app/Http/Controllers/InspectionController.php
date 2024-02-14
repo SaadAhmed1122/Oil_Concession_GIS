@@ -7,18 +7,58 @@ use App\Models\Tank;
 use App\Models\Well;
 use Illuminate\Http\Request;
 use App\Models\Inspection;
+use Illuminate\Support\Facades\Log;
 
 class InspectionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $inspections = Inspection::all();
+        $query = Inspection::query();
+
+        Log::debug($request);
+        // Check if start date is provided and add where clause
+        if ($request->filled('start_date')) {
+            $query->whereDate('inspection_date', '>=', $request->start_date);
+        }
+
+        // Check if end date is provided and add where clause
+        if ($request->filled('end_date')) {
+            $query->whereDate('inspection_date', '<=', $request->end_date);
+        }
+
+        // Retrieve filtered or all inspections based on the presence of filter parameters
+        if ($request->filled('start_date') && $request->has('end_date')) {
+            $inspections = $query->get();
+        } else {
+            $inspections = Inspection::all();
+        }
+
+        // Filter by concession
+        if ($request->filled('concession') && $request->concession !== '') {
+            $query->where('related_id', $request->concession);
+        }
+
+        // Filter by well
+        if ($request->filled('well') && $request->well !== '') {
+            $query->where('related_id', $request->well);
+        }
+
+        // Filter by tank
+        if ($request->filled('tank') && $request->tank !== '') {
+            $query->where('related_id', $request->tank);
+        }
+
+        // Retrieve filtered inspections
+        $inspections = $query->get();
+
+        // Retrieve all concessions, wells, and tanks for filter options
         $concessions = Concession::all();
         $wells = Well::all();
         $tanks = Tank::all();
 
         return view('inspections.inspection_list', compact('inspections', 'concessions', 'wells', 'tanks'));
     }
+
 
     public function store(Request $request)
     {
@@ -40,6 +80,8 @@ class InspectionController extends Controller
         $inspection->description = $request->description;
 
         // Assign related_id based on the type
+        // dd($request);
+
         switch ($request->type) {
             case 'concession':
                 $inspection->related_id = $request->concession_code;

@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use MatanYadaev\EloquentSpatial\Objects\Geometry;
-use MatanYadaev\EloquentSpatial\Objects\LineString;
 use MatanYadaev\EloquentSpatial\Objects\Polygon;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 
@@ -23,11 +21,6 @@ class Concession extends Model
         'geometry',
 
     ];
-
-    protected $casts = [
-        'geometry' => LineString::class,
-    ];
-
 
     public function wells()
     {

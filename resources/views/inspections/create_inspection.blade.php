@@ -45,7 +45,7 @@
                                 <select id="well_code" class="form-control" name="well_code">
                                     <option value="">Select Well</option>
                                     @foreach($wells as $well)
-                                        <option value="{{ $well->id }}">{{ $well->well_code }}</option>
+                                        <option value="{{ $well->well_code }}">{{ $well->well_code }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -55,7 +55,7 @@
                                 <select id="tank_code" class="form-control" name="tank_code">
                                     <option value="">Select Tank</option>
                                     @foreach($tanks as $tank)
-                                        <option value="{{ $tank->id }}">{{ $tank->tank_code }}</option>
+                                        <option value="{{ $tank->tank_code }}">{{ $tank->tank_code }}</option>
                                     @endforeach
                                 </select>
                             </div>
