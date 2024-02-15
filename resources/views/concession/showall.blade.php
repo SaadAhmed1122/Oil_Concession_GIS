@@ -5,7 +5,9 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Concession Map</div>
-
+                    <a href="{{ route('concessions.create') }}" class="btn btn-primary mb-3"
+                        style="position:absolute;
+                    right:5%;margin-top:0.5%">Create</a>
                     <div class="card-body">
                         <div id="map" style="width: 100%; height: 500px;"></div>
                     </div>
@@ -15,24 +17,31 @@
     </div>
 
     <script>
-        var map = L.map('map').setView([51.505, -0.09], 13); // Set initial view
+        var map = L.map('map').setView([51.505, -0.09], 13);
 
+        // Add tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-
-
-        var bounds = L.latLngBounds(); // Initialize bounds
+        var bounds = L.latLngBounds();
 
         @foreach ($concessions as $concession)
-            var geometry = JSON.parse('{!! $concession->geometry !!}');
-            var polygon = L.polygon(geometry).addTo(map);
-            bounds.extend(polygon.getBounds());
+            var geometries = JSON.parse('{!! $concession->geometry !!}');
+            var name = '{{ $concession->name }}'; // Assuming 'name' is the attribute containing the geometry name
+
+            geometries.forEach(function(geometry) {
+                console.log(geometry);
+                var polygon = L.polygon(geometry).addTo(map);
+                polygon.bindPopup(
+                    '<b>ID:</b> {{ $concession->concession_id }}<br><b>Name:</b> {{ $concession->concession_name }}'
+                    );
+                bounds.extend(polygon.getBounds());
+            });
         @endforeach
 
-        map.fitBounds(bounds); 
+        map.fitBounds(bounds);
+
 
 
         // var featureGroup = L.featureGroup();

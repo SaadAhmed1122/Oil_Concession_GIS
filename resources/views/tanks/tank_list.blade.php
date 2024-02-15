@@ -4,6 +4,8 @@
     <div class="container">
         <div class="card">
             <div class="card-header">Filter Tanks</div>
+            <a href="{{ route('well.create') }}" class="btn btn-primary mb-3" style="position:absolute;
+            right:5%;margin-top:0.5%">Create</a>
             <div class="card-body">
                 <form method="GET" action="{{ route('tank.index') }}">
                     <div class="form-group">

@@ -6,7 +6,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Wells List</div>
-
+                <a href="{{ route('well_productions.index') }}" class="btn btn-primary mb-3" style="position:absolute;right:0%;">Go to Production Page</a>
+                <a href="{{ route('well.create') }}" class="btn btn-primary mb-3" style="position:absolute;
+                right:20%;">Create</a>
                 <div class="card-body">
                     <form method="GET" action="{{ route('well.list') }}">
                         <div class="form-group">
@@ -21,12 +23,10 @@
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </form>
                     <br>
-
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Monthly Production</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
                             </tr>
@@ -35,7 +35,6 @@
                             @foreach ($wells as $well)
                                 <tr>
                                     <td>{{ $well->well_code }}</td>
-                                    <td>{{ $well->monthly_production }}</td>
                                     <td>{{ $well->latitude }}</td>
                                     <td>{{ $well->longitude }}</td>
                                 </tr>

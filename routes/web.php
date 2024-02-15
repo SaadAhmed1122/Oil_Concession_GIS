@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ConcessionController;
 use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\tankController;
 use App\Http\Controllers\wellController;
+use App\Http\Controllers\WellProductionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [SummaryController::class, 'index']);
+
 Route::get('/login', function () {
     return redirect(route('filament.admin.auth.login'));
 })->name('login');
@@ -47,3 +48,8 @@ Route::get('/inspections/create', [InspectionController::class, 'create'])->name
 Route::get('/inspections/{inspection}/edit', [InspectionController::class, 'edit'])->name('inspections.edit_inspection');
 Route::delete('/inspections/{inspection}', [InspectionController::class, 'destroy'])->name('inspections.destroy');
 Route::put('/inspections/{id}', [InspectionController::class,'update'])->name('inspections.update');
+
+// Well Production
+Route::get('/well_productions/create', [WellProductionController::class, 'create'])->name('well_productions.create');
+Route::post('/well_productions', [WellProductionController::class, 'store'])->name('well_productions.store');
+Route::get('/well_productions_list', [WellProductionController::class, 'index'])->name('well_productions.index');

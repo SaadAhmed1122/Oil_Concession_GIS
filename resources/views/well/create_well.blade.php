@@ -18,11 +18,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="monthly_production">Monthly Production:</label>
-                                <input type="text" class="form-control" id="monthly_production"
-                                    name="monthly_production">
-                            </div>
 
                             <div class="form-group">
                                 <label for="latitude">Latitude:</label>
