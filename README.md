@@ -2,6 +2,22 @@
 
 This project focuses on managing the oil concessions in a particular region. With an interactive map, you can easily handle concessions, wells, tanks, and inspections. You can use the map to create concessions, wells, connect them to tanks, and view everything in one place. It's all about simplifying the management of oil resources in the region.
 
+## ER Diagram
+ER Diagram of the project
+(![ER Diagram](project_images/oil_concession.png))
+
+## Database Schema
+MySql database use and the schema is below
+![DB Shema](project_images/Capture9.PNG)
+
+## Project Images
+![alt text](project_images/Capture3.PNG)
+![alt text](project_images/Capture4.PNG)
+![alt text](project_images/Capture5.PNG)
+![alt text](project_images/Capture6.PNG)
+![alt text](project_images/Capture7.PNG)
+![alt text](project_images/Capture8.PNG)
+
 ## Table of Contents
 
 - [Installation](#installation)
