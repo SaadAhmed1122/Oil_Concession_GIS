@@ -33,9 +33,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="capacity">Capacity:</label>
+                                <label for="capacity">Capacity (KG):</label>
                                 <input type="decimal" class="form-control" id="capacity" name="capacity">
-                            </div>Kg
+                            </div>
 
                             <div class="form-group">
                                 <label for="latitude">Latitude:</label>
@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="polyline">Polyline:</label>
+                                <label for="polyline">Relation:</label>
                                 <input type="text" class="form-control" id="polyline" name="polyline">
                             </div>
 

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">Filter Tanks</div>
-            <a href="{{ route('well.create') }}" class="btn btn-primary mb-3" style="position:absolute;
+            <a href="{{ route('tanks.create') }}" class="btn btn-primary mb-3" style="position:absolute;
             right:5%;margin-top:0.5%">Create</a>
             <div class="card-body">
                 <form method="GET" action="{{ route('tank.index') }}">
@@ -32,7 +32,7 @@
                         <tr>
                             <th>Tank ID</th>
                             <th>Well</th>
-                            <th>Capacity</th>
+                            <th>Capacity (kg)</th>
                         </tr>
                     </thead>
                     <tbody>
