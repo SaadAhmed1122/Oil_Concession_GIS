@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('concession_code')->references('concession_id')->on('concessions');
-            // Assuming well_code is a foreign key referencing the well table
             $table->foreign('well_code')->references('well_code')->on('wells');
 
         });

@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use MatanYadaev\EloquentSpatial\Objects\Polygon;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+
 
 class Concession extends Model
 {
     use HasFactory;
-
+    use HasSpatial;
     protected $table = 'concessions';
 
     protected $primaryKey = 'concession_id';
@@ -18,11 +21,6 @@ class Concession extends Model
         'geometry',
 
     ];
-
-    protected $casts = [
-        'geometry' => 'geometry',
-    ];
-
 
     public function wells()
     {

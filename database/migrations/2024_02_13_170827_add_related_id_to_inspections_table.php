@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('concessions', function (Blueprint $table) {
-            $table->id('concession_id');
-            $table->string('concession_name');
-            $table->polygon('geometry');
-            $table->timestamps();
+        Schema::table('inspections', function (Blueprint $table) {
+            $table->unsignedBigInteger('related_id')->nullable();
         });
-
-        DB::statement('ALTER TABLE concessions ADD SPATIAL INDEX(geometry)');
-
     }
 
     /**
@@ -27,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('concession');
+        Schema::table('inspections', function (Blueprint $table) {
+            $table->dropColumn('related_id'); // Drop related_id field
+        });
     }
 };
