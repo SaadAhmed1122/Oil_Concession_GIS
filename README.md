@@ -1,4 +1,3 @@
-```markdown
 # Oil Concession Project
 
 This project focuses on managing the oil concessions in a particular region. With an interactive map, you can easily handle concessions, wells, tanks, and inspections. You can use the map to create concessions, wells, connect them to tanks, and view everything in one place. It's all about simplifying the management of oil resources in the region.
@@ -66,4 +65,3 @@ Past inspections should be viewable, with options to filter by year, concession,
 Specify the license under which the project is distributed. For example:
 
 This project is licensed under the [UNIP](LICENSE).
-```
